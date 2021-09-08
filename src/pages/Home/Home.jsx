@@ -4,12 +4,13 @@ import MaterialIcon from '@material/react-material-icon';
 
 import logo from '../../assets/logo.svg';
 import restaurante from '../../assets/restaurante-fake.png';
-import { Card, RestaurantCard, Modal } from '../../components';
+import { Card, RestaurantCard, Modal, Map } from '../../components';
 
-import { Container, Carousel, Search, Logo, Wrapper, Map, CarouselTitle } from './styled';
+import { Container, Carousel, Search, Logo, Wrapper, CarouselTitle } from './styled';
 
 const Home = () => {
   const [inputValue, setInputValue] = useState('');
+  const [query, setQuery] = useState(null);
   const [modalOpened, setmodalOpened] = useState(false);
 
   const settings = {
@@ -21,6 +22,12 @@ const Home = () => {
     adaptiveHeight: true,
   };
 
+  function handleKeyPress(e) {
+    if (e.key === 'Enter') {
+      setQuery(inputValue);
+    }
+  }
+
   return (
     <Wrapper>
       <Container>
@@ -30,7 +37,11 @@ const Home = () => {
             label="Pesquisar restaurantes"
             outlined
             trailingIcon={<MaterialIcon role="button" icon="search" />}>
-            <Input value={inputValue} onChange={(e) => setInputValue(e.target.value)} />
+            <Input
+              value={inputValue}
+              onKeyPress={handleKeyPress}
+              onChange={(e) => setInputValue(e.target.value)}
+            />
           </TextField>
           <CarouselTitle>Na sua área</CarouselTitle>
           <Carousel {...settings}>
@@ -44,7 +55,7 @@ const Home = () => {
         </Search>
         <RestaurantCard />
       </Container>
-      <Map />
+      <Map query={query} />
       <Modal open={modalOpened} onClose={() => setmodalOpened(!modalOpened)} />
     </Wrapper>
   );
