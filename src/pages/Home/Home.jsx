@@ -4,7 +4,6 @@ import TextField, { Input } from '@material/react-text-field';
 import MaterialIcon from '@material/react-material-icon';
 
 import logo from '../../assets/logo.svg';
-import restaurante from '../../assets/restaurante-fake.png';
 import { Card, RestaurantCard, Modal, Map, Loader, Skeleton } from '../../components';
 
 import {
@@ -54,6 +53,7 @@ const Home = () => {
           <TextField
             label="Pesquisar restaurantes"
             outlined
+            onTrailingIconSelect={() => setQuery(inputValue)}
             trailingIcon={<MaterialIcon role="button" icon="search" />}>
             <Input
               value={inputValue}
@@ -66,11 +66,7 @@ const Home = () => {
               <CarouselTitle>Na sua área</CarouselTitle>
               <Carousel {...settings}>
                 {restaurants.map((restaurant) => (
-                  <Card
-                    key={restaurant.place_id}
-                    photo={restaurant.photos ? restaurant.photos[0].getUrl() : restaurante}
-                    title={restaurant.name}
-                  />
+                  <Card key={restaurant.place_id} restaurant={restaurant} />
                 ))}
               </Carousel>
             </>

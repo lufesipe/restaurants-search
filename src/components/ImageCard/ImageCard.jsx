@@ -20,20 +20,22 @@ const Title = styled.span`
   font-size: 16px;
 `;
 
-const ImageCard = ({ photo, title }) => {
+const ImageCard = ({ restaurant }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
+
+  const image = restaurant.photos ? restaurant.photos[0].getUrl() : restaurant.icon;
 
   useEffect(() => {
     const imageLoader = new Image();
-    imageLoader.src = photo;
+    imageLoader.src = image;
     imageLoader.onload = () => setImageLoaded(true);
-  }, [photo]);
+  }, [image]);
 
   return (
     <>
       {imageLoaded ? (
-        <Card photo={photo}>
-          <Title>{title}</Title>
+        <Card photo={image}>
+          <Title>{restaurant.name}</Title>
         </Card>
       ) : (
         <Skeleton width="90px" heigth="90px" />
