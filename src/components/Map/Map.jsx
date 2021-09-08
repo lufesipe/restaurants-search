@@ -95,6 +95,8 @@ export const MapContainer = (props) => {
         <Marker
           key={restaurant.place_id}
           name={restaurant.name}
+          animation={google.maps.Animation.DROP}
+          onClick={() => props.callbackMarkerPress(restaurant.place_id)}
           position={{
             lat: restaurant.geometry.location.lat(),
             lng: restaurant.geometry.location.lng(),

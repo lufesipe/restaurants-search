@@ -21,7 +21,7 @@ const Home = () => {
   const [inputValue, setInputValue] = useState('');
   const [query, setQuery] = useState(null);
   const [placeId, setPlaceId] = useState(null);
-  const [modalOpened, setmodalOpened] = useState(false);
+  const [modalOpened, setModalOpened] = useState(false);
   const { restaurants, restaurantSelected } = useSelector((state) => state.restaurants);
 
   const settings = {
@@ -42,7 +42,7 @@ const Home = () => {
 
   function handleOpenModal(placeId) {
     setPlaceId(placeId);
-    setmodalOpened(true);
+    setModalOpened(true);
   }
 
   return (
@@ -81,8 +81,12 @@ const Home = () => {
           />
         ))}
       </Container>
-      <Map query={query} placeId={placeId} />
-      <Modal open={modalOpened} onClose={() => setmodalOpened(!modalOpened)}>
+      <Map
+        query={query}
+        placeId={placeId}
+        callbackMarkerPress={(placeId) => handleOpenModal(placeId)}
+      />
+      <Modal open={modalOpened} onClose={() => setModalOpened(!modalOpened)}>
         {restaurantSelected ? (
           <>
             <ModalTitle>{restaurantSelected?.name}</ModalTitle>
