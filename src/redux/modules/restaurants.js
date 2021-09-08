@@ -1,10 +1,10 @@
 export const Types = {
   SET_RESTAURANTS: 'restaurants/SET_RESTAURANTS',
-  SET_RESTAURANT: 'restaurants/SET_RESTAURANT',
-}
+  SET_RESTAURANT: 'restaurans/SET_RESTAURANT',
+};
 
 const initialState = {
-  restaurants = [],
+  restaurants: [],
   restaurantSelected: null,
 };
 
