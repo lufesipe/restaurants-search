@@ -7,17 +7,28 @@ import logo from '../../assets/logo.svg';
 import restaurante from '../../assets/restaurante-fake.png';
 import { Card, RestaurantCard, Modal, Map } from '../../components';
 
-import { Container, Carousel, Search, Logo, Wrapper, CarouselTitle } from './styled';
+import {
+  Container,
+  Carousel,
+  Search,
+  Logo,
+  Wrapper,
+  CarouselTitle,
+  ModalTitle,
+  ModalContent,
+} from './styled';
 
 const Home = () => {
   const [inputValue, setInputValue] = useState('');
   const [query, setQuery] = useState(null);
+  const [placeId, setPlaceId] = useState(null);
   const [modalOpened, setmodalOpened] = useState(false);
-  const { restaurants } = useSelector((state) => state.restaurants);
+  const { restaurants, restaurantSelected } = useSelector((state) => state.restaurants);
 
   const settings = {
     dots: false,
     infinite: true,
+    autoplay: true,
     speed: 300,
     slidesToShow: 4,
     slidesToScroll: 4,
@@ -28,6 +39,11 @@ const Home = () => {
     if (e.key === 'Enter') {
       setQuery(inputValue);
     }
+  }
+
+  function handleOpenModal(placeId) {
+    setPlaceId(placeId);
+    setmodalOpened(true);
   }
 
   return (
@@ -54,20 +70,24 @@ const Home = () => {
                 title={restaurant.name}
               />
             ))}
-
-            <Card photo={restaurante} title="nome" />
-            <Card photo={restaurante} title="nome" />
-            <Card photo={restaurante} title="nome" />
-            <Card photo={restaurante} title="nome" />
-            <Card photo={restaurante} title="nome" />
           </Carousel>
         </Search>
         {restaurants.map((restaurant) => (
-          <RestaurantCard restaurant={restaurant} />
+          <RestaurantCard
+            onClick={() => handleOpenModal(restaurant.place_id)}
+            restaurant={restaurant}
+          />
         ))}
       </Container>
-      <Map query={query} />
-      <Modal open={modalOpened} onClose={() => setmodalOpened(!modalOpened)} />
+      <Map query={query} placeId={placeId} />
+      <Modal open={modalOpened} onClose={() => setmodalOpened(!modalOpened)}>
+        <ModalTitle>{restaurantSelected?.name}</ModalTitle>
+        <ModalContent>{restaurantSelected?.formatted_phone_number}</ModalContent>
+        <ModalContent>{restaurantSelected?.formatted_address}</ModalContent>
+        <ModalContent>
+          {restaurantSelected?.opening_hours?.open_now ? 'Aberto agora' : 'Fechado no momento'}
+        </ModalContent>
+      </Modal>
     </Wrapper>
   );
 };
