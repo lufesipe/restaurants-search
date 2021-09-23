@@ -17,14 +17,15 @@ export const Restaurant = styled.div`
 export const RestaurantInfo = styled.div`
   display: flex;
   flex-direction: column;
+  margin-right: 10px;
 `;
 
 export const Title = styled.span`
   font-family: ${(props) => props.theme.fonts.regular};
   color: ${(props) => props.theme.colors.text};
-  font-size: 24px;
+  font-size: 20px;
   font-weight: bold;
-  line-height: 29px;
+  line-height: 25px;
   margin-bottom: 10px;
 `;
 

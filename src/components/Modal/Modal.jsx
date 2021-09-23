@@ -1,14 +1,16 @@
 import React, { useEffect } from 'react';
 
-import Portal from './Portal/Portal';
+import { Portal } from './Portal';
+import { ModalContent } from './ModalContent';
+import { ModalSkeleton } from './ModalSkeleton';
 
-import { Overlay, Dialog } from './styled';
+import * as S from './styled';
 
-const Modal = ({ children, open, onClose }) => {
+const Modal = ({ open, onClose, restaurantSelected }) => {
   useEffect(() => {
-    function onEsc(e) {
+    const onEsc = (e) => {
       if (e.keyCode === 27) onClose();
-    }
+    };
 
     window.addEventListener('keydown', onEsc);
 
@@ -19,19 +21,25 @@ const Modal = ({ children, open, onClose }) => {
 
   if (!open) return null;
 
-  function onOverlayClick() {
+  const onOverlayClick = () => {
     onClose();
-  }
+  };
 
-  function onDialogClick(e) {
+  const onDialogClick = (e) => {
     e.stopPropagation();
-  }
+  };
 
   return (
     <Portal>
-      <Overlay onClick={onOverlayClick}>
-        <Dialog onClick={onDialogClick}>{children}</Dialog>
-      </Overlay>
+      <S.Overlay onClick={onOverlayClick}>
+        <S.Dialog onClick={onDialogClick}>
+          {restaurantSelected ? (
+            <ModalContent restaurantSelected={restaurantSelected} onClose={onClose} />
+          ) : (
+            <ModalSkeleton />
+          )}
+        </S.Dialog>
+      </S.Overlay>
     </Portal>
   );
 };

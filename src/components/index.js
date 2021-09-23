@@ -1,6 +1,8 @@
-export { default as Card } from './ImageCard/ImageCard';
-export { default as RestaurantCard } from './RestaurantCard/RestaurantCard';
-export { default as Modal } from './Modal/Modal';
-export { default as Map } from './Map/Map';
-export { default as Loader } from './Loader/Loader';
-export { default as Skeleton } from './Skeleton/Skeleton';
+export { ImageCard } from './ImageCard';
+export { RestaurantCard } from './RestaurantCard';
+export { Modal } from './Modal';
+export { Map } from './Map';
+export { Loader } from './Loader';
+export { Skeleton } from './Skeleton';
+export { InputField } from './InputField';
+export { Carousel } from './Carousel';

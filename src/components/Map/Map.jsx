@@ -84,12 +84,18 @@ export const MapContainer = (props) => {
     searchNearby(map, map.center);
   }
 
+  const containerStyle = {
+    width: '100%',
+    height: '100%',
+  };
+
   return (
     <Map
       google={google}
       centerAroundCurrentLocation
       onReady={onMapReady}
       onRecenter={onMapReady}
+      containerStyle={containerStyle}
       {...props}>
       {restaurants.map((restaurant) => (
         <Marker
